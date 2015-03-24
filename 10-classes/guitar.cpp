@@ -12,6 +12,7 @@ Guitar::Guitar() {
 }
 
 Guitar::Guitar(const char *type, int strings, int frets) {
+	type = NULL;
 	setType(type);
 	this->strings = strings;
 	this->frets = frets;
