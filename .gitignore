@@ -1,5 +1,4 @@
-*
+/10-classes/*
 !*.cpp
 !*.h
 !Makefile
-!.gitignore
