@@ -1,3 +1,4 @@
+#include <iostream>
 #include <cstring>
 #include "person.h"
 
@@ -32,6 +33,15 @@ Person::Person(const char *firstName, const char *lastName,
 								setLastName(lastName);
 								this->age = age;
 								this->gender = gender;
+}
+
+Person::Person(const Person &other) {
+	firstName = NULL;
+	lastName = NULL;
+	setFirstName(other.firstName);
+	setLastName(other.lastName);
+	age = other.age;
+	gender = other.gender;
 }
 
 Person::~Person() {

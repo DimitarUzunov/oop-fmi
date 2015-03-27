@@ -14,6 +14,8 @@ public:
 	Person();
 	Person(const char *firstName, const char *lastName, int age, char gender);
 
+	Person(const Person &other);
+
 	~Person();
 
 	char *getFirstName() const;
