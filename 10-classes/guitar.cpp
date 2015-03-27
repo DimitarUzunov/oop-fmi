@@ -1,4 +1,3 @@
-#include <iostream>
 #include <cstring>
 #include "guitar.h"
 
@@ -51,18 +50,4 @@ void Guitar::setFrets(int frets) {
 Guitar::~Guitar() {
 	delete[] type;
 	type = NULL;
-}
-
-int main()
-{
-	char electric[] = "Electric";
-	Guitar guitar(electric, 6, 22);
-
-	std::cout << guitar.getType() << '\n';
-	guitar.setType("Acoustic");
-	std::cout << guitar.getType() << '\n';
-	std::cout << guitar.getStrings() << '\n';
-	std::cout << guitar.getFrets() << '\n';
-
-	return 0;
 }

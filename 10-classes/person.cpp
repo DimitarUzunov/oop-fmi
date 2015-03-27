@@ -1,4 +1,3 @@
-#include <iostream>
 #include <cstring>
 #include "person.h"
 
@@ -14,11 +13,11 @@ void Person::setName(char **dest, const char *source) {
 
 Person::Person() {
 	firstName = new char[5];
-	const char john[5] = "John";
+	const char john[] = "John";
 	strncpy(firstName, john, 5);
 
 	lastName = new char[4];
-	const char doe[4] = "Doe";
+	const char doe[] = "Doe";
 	strncpy(lastName, doe, 4);
 
 	age = 18;
@@ -72,14 +71,4 @@ void Person::setAge(int age) {
 
 void Person::setGender(char gender) {
 	this->gender = gender;
-}
-
-int main() {
-	Person person;
-	std::cout << person.getFirstName() << '\n';
-
-	Person maria("Maria", "Penkova", 19, 'f');
-	std::cout << maria.getLastName() << '\n';
-
-	return 0;
 }
