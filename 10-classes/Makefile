@@ -1,11 +1,11 @@
 CC = g++
 CFLAGS = -Wall -g
 
-SRCS = main.cpp guitar.cpp person.cpp song.cpp
+SRCS = main.cpp guitar.cpp person.cpp song.cpp album.cpp
 OBJS = $(SRCS:.cpp=.o)
 TARGET = main
 
-.PHONY: depend clean
+.PHONY: clean
 
 all: $(TARGET)
 
@@ -17,7 +17,3 @@ $(TARGET): $(OBJS)
 
 clean:
 	$(RM) *.o *~ $(TARGET)
-
-depend: $(SRC)
-	makedepend $^
-# DO NOT DELETE
