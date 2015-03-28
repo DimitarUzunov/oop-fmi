@@ -3,6 +3,7 @@
 #include "guitar.h"
 #include "person.h"
 #include "song.h"
+#include "album.h"
 
 void testGuitar() {
 	char electric[] = "Electric";
@@ -31,10 +32,27 @@ void testSong() {
 	std::cout << song.getArtist()->getFirstName() << '\n';
 }
 
+void testAlbum() {
+	Person artist("Slash", "Hudson", 49, 'm');
+	Album album("World on fire", artist, 17);
+
+	std::cout << album.getName() << '\n';
+	std::cout << album.getArtist()->getFirstName() << '\n';
+	std::cout << album.getSongsCount() << '\n';
+
+	album.setName("Apocalyptic love");
+	album.setSongsCount(15);
+
+	std::cout << album.getName() << '\n';
+	std::cout << album.getArtist()->getFirstName() << '\n';
+	std::cout << album.getSongsCount() << '\n';
+}
+
 int main() {
 	// testGuitar();
 	// testPerson();
-	testSong();
+	// testSong();
+	testAlbum();
 
 	return 0;
 }
