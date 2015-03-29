@@ -4,6 +4,10 @@
 #include "person.h"
 #include "song.h"
 #include "album.h"
+#include "dog.h"
+#include "train.h"
+#include "book.h"
+#include "circle.h"
 
 void testGuitar() {
 	char electric[] = "Electric";
@@ -48,11 +52,49 @@ void testAlbum() {
 	std::cout << album.getSongsCount() << '\n';
 }
 
+void testDog() {
+	Dog dog("Rex", "Normal", 1);
+	dog.bark();
+}
+
+void testTrain() {
+	Train train(13, 13);
+
+	std::cout << "The train has " << train.getAllSeats() << " seats.\n";
+
+	train.toggleIsWrecked();
+	std::cout << "The train is ";
+	if (train.getIsWrecked()) {
+		std::cout << "wrecked!\n";
+	} else {
+		std::cout << "not wrecked.\n";
+	}
+}
+
+void testBook() {
+	Person author("Robin", "Sharma", 49, 'm');
+	Book book("The leader who had no title", author, 300);
+
+	std::cout << '\'' << book.getName() << "' by " << book.getAuthor()->getFirstName() << ' ' << book.getAuthor()->getLastName() << '\n';
+}
+
+void testCircle() {
+	Circle circle;
+	circle.setRadius(13);
+
+	std::cout << "Perimeter: " << circle.getPerimeter() << '\n';
+	std::cout << "Area: " << circle.getArea() << '\n';
+}
+
 int main() {
 	// testGuitar();
 	// testPerson();
 	// testSong();
-	testAlbum();
+	// testAlbum();
+	// testDog();
+	// testTrain();
+	// testBook();
+	testCircle();
 
 	return 0;
 }
