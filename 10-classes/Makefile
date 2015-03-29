@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g
 
-SRCS = main.cpp guitar.cpp person.cpp song.cpp album.cpp
+SRCS = main.cpp guitar.cpp person.cpp song.cpp album.cpp playlist.cpp polygon.cpp dog.cpp train.cpp book.cpp circle.cpp
 OBJS = $(SRCS:.cpp=.o)
 TARGET = main
 
