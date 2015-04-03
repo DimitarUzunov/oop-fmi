@@ -18,7 +18,6 @@ public:
 	void setCarsCount(int carsCount);
 	void setSeatsInCar(int seatsInCar);
 	void toggleIsWrecked();
-
 };
 
 #endif

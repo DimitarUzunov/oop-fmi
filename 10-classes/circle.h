@@ -13,7 +13,6 @@ public:
 	double getArea() const;
 
 	void setRadius(double radius);
-
 };
 
 #endif
