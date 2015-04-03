@@ -1,28 +1,30 @@
 #ifndef BOOK_H
 #define BOOK_H
 
-#include "person.h"
-
 class Book {
 private:
 	char *name;
-	Person *author;
+	char *author;
 	int pagesCount;
 
-public:
-	Book();
-	Book(const char *name, const Person &author, int pagesCount);
+	void copy(const Book &other);
+	void destroy();
+	void setString(char **dest, const char *source);
 
+public:
+	Book(const char *name = "Unknown",
+			const char *author = "Unknown", int pagesCount = 0);
+	Book(const Book &other);
+	Book &operator=(const Book &other);
 	~Book();
 
-	char *getName() const;
-	Person *getAuthor() const;
+	const char *getName() const;
+	const char *getAuthor() const;
 	int getPagesCount() const;
 
 	void setName(const char *name);
-	void setAuthor(const Person &author);
+	void setAuthor(const char *author);
 	void setPagesCount(int pagesCount);
-
 };
 
 #endif

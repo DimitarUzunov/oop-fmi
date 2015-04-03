@@ -1,28 +1,30 @@
 #ifndef ALBUM_H
 #define ALBUM_H
 
-#include "person.h"
-
 class Album {
 private:
 	char *name;
-	Person *artist;
+	char *artist;
 	int songsCount;
 
-public:
-	Album();
-	Album(const char *name, const Person &artist, int songsCount);
+	void copy(const Album &other);
+	void destroy();
+	void setString(char **dest, const char *source);
 
+public:
+	Album(const char *name = "Unknown",
+				const char *artist = "Unknown", int songsCount = 0);
+	Album(const Album &other);
+	Album &operator=(const Album &other);
 	~Album();
 
-	char *getName() const;
-	Person *getArtist() const;
+	const char *getName() const;
+	const char *getArtist() const;
 	int getSongsCount() const;
 
 	void setName(const char *name);
-	void setArtist(const Person &artist);
+	void setArtist(const char *artist);
 	void setSongsCount(int songsCount);
-
 };
 
 #endif

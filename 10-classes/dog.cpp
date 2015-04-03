@@ -1,10 +1,22 @@
 #include <iostream>
+#include <cstring>
 #include "dog.h"
 
-void Dog::setStringField(char **dest, const char *source) {
-	if (*dest) {
-		delete[] *dest;
-	}
+void Dog::copy(const Dog &other) {
+	setName(other.name);
+	setBreed(other.breed);
+	age = other.age;
+}
+
+void Dog::destroy() {
+	delete[] name;
+	name = NULL;
+	delete[] breed;
+	breed = NULL;
+}
+
+void Dog::setString(char **dest, const char *source) {
+	delete[] *dest;
 
 	int sourceLen = strlen(source) + 1;
 	*dest = new char[sourceLen];
@@ -19,18 +31,30 @@ Dog::Dog(const char *name, const char *breed, int age) {
 	this->age = age;
 }
 
-Dog::~Dog() {
-	delete[] name;
+Dog::Dog(const Dog &other) {
 	name = NULL;
-	delete[] breed;
 	breed = NULL;
+	copy(other);
 }
 
-char *Dog::getName() const {
+Dog &Dog::operator=(const Dog &other) {
+	if (this != &other) {
+		destroy();
+		copy(other);
+	}
+
+	return *this;
+}
+
+Dog::~Dog() {
+	destroy();
+}
+
+const char *Dog::getName() const {
 	return name;
 }
 
-char *Dog::getBreed() const {
+const char *Dog::getBreed() const {
 	return breed;
 }
 
@@ -43,11 +67,11 @@ void Dog::bark() const {
 }
 
 void Dog::setName(const char *name) {
-	setStringField(&this->name, name);
+	setString(&this->name, name);
 }
 
 void Dog::setBreed(const char *breed) {
-	setStringField(&this->breed, breed);
+	setString(&this->breed, breed);
 }
 
 void Dog::setAge(int age) {

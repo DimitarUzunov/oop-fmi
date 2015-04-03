@@ -1,12 +1,14 @@
 #include <cstring>
 #include "playlist.h"
 
-Playlist::Playlist() {
-	name = new char[8];
-	const char unknown[] = "Unknown";
-	strncpy(name, unknown, 8);
+void Playlist::copy(const Playlist &other) {
+	setName(other.name);
+	songs = other.songs;
+}
 
-	songsCount = 0;
+void Playlist::destroy() {
+	delete[] name;
+	name = NULL;
 }
 
 Playlist::Playlist(const char *name) {
@@ -14,37 +16,47 @@ Playlist::Playlist(const char *name) {
 	setName(name);
 }
 
-Playlist::~Playlist() {
-	delete[] name;
+Playlist::Playlist(const Playlist &other) {
 	name = NULL;
+	copy(other);
 }
 
-char *Playlist::getName() const {
+Playlist &Playlist::operator=(const Playlist &other) {
+	if (this != &other) {
+		destroy();
+		copy(other);
+	}
+
+	return *this;
+}
+
+Playlist::~Playlist() {
+	destroy();
+}
+
+const char *Playlist::getName() const {
 	return name;
 }
 
-int Playlist::getSongsCount() const {
-	return songsCount;
+const Song *Playlist::getSongById(int id) const {
+	if (getSongsCount() <= 0 || id < 0 || id >= getSongsCount()) {
+		return NULL;
+	}
+	return &songs[id];
 }
 
-// Song *Playlist::getSongById(int id) const {
-//
-// }
+int Playlist::getSongsCount() const {
+	return songs.size();
+}
 
 void Playlist::setName(const char *name) {
-	if (this->name) {
-		delete[] this->name;
-	}
+	delete[] this->name;
 
 	int nameLen = strlen(name) + 1;
 	this->name = new char[nameLen];
 	strncpy(this->name, name, nameLen);
 }
 
-void Playlist::setSongsCount(int songsCount) {
-	this->songsCount = songsCount;
+void Playlist::addSong(Song song) {
+	songs.push_back(song);
 }
-
-// void Playlist::addSong(const char &song) {
-//
-// }

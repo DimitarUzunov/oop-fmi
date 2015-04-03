@@ -1,28 +1,26 @@
-#include <iostream>
 #include <cstring>
 #include "person.h"
 
-void Person::setName(char **dest, const char *source) {
-	if (*dest) {
-		delete[] *dest;
-	}
+void Person::copy(const Person &other) {
+	setFirstName(other.firstName);
+	setLastName(other.lastName);
+	age = other.age;
+	gender = other.gender;
+}
+
+void Person::destroy() {
+	delete[] firstName;
+	firstName = NULL;
+	delete[] lastName;
+	lastName = NULL;
+}
+
+void Person::setString(char **dest, const char *source) {
+	delete[] *dest;
 
 	int sourceLen = strlen(source) + 1;
 	*dest = new char[sourceLen];
 	strncpy(*dest, source, sourceLen);
-}
-
-Person::Person() {
-	firstName = new char[5];
-	const char john[] = "John";
-	strncpy(firstName, john, 5);
-
-	lastName = new char[4];
-	const char doe[] = "Doe";
-	strncpy(lastName, doe, 4);
-
-	age = 18;
-	gender = 'm';
 }
 
 Person::Person(const char *firstName, const char *lastName,
@@ -38,24 +36,27 @@ Person::Person(const char *firstName, const char *lastName,
 Person::Person(const Person &other) {
 	firstName = NULL;
 	lastName = NULL;
-	setFirstName(other.firstName);
-	setLastName(other.lastName);
-	age = other.age;
-	gender = other.gender;
+	copy(other);
+}
+
+Person &Person::operator=(const Person &other) {
+	if (this != &other) {
+		destroy();
+		copy(other);
+	}
+
+	return *this;
 }
 
 Person::~Person() {
-	delete[] firstName;
-	firstName = NULL;
-	delete[] lastName;
-	lastName = NULL;
+	destroy();
 }
 
-char *Person::getFirstName() const {
+const char *Person::getFirstName() const {
 	return firstName;
 }
 
-char *Person::getLastName() const {
+const char *Person::getLastName() const {
 	return lastName;
 }
 
@@ -68,11 +69,11 @@ char Person::getGender() const {
 }
 
 void Person::setFirstName(const char *firstName) {
-	setName(&this->firstName, firstName);
+	setString(&this->firstName, firstName);
 }
 
 void Person::setLastName(const char *lastName) {
-	setName(&this->lastName, lastName);
+	setString(&this->lastName, lastName);
 }
 
 void Person::setAge(int age) {

@@ -1,16 +1,28 @@
 #include <cstring>
 #include "song.h"
 
-Song::Song() {
-	name = new char[8];
-	const char unknown[] = "Unknown";
-	strncpy(name, unknown, 8);
-
-	artist = new Person();
-	duration = 0;
+void Song::copy(const Song &other) {
+	setName(other.name);
+	setArtist(other.artist);
+	duration = other.duration;
 }
 
-Song::Song(const char *name, const Person &artist, int duration) {
+void Song::destroy() {
+	delete[] name;
+	name = NULL;
+	delete[] artist;
+	artist = NULL;
+}
+
+void Song::setString(char **dest, const char *source) {
+	delete[] *dest;
+
+	int sourceLen = strlen(source) + 1;
+	*dest = new char[sourceLen];
+	strncpy(*dest, source, sourceLen);
+}
+
+Song::Song(const char *name, const char *artist, int duration) {
 	this->name = NULL;
 	this->artist = NULL;
 	setName(name);
@@ -18,18 +30,30 @@ Song::Song(const char *name, const Person &artist, int duration) {
 	this->duration = duration;
 }
 
-Song::~Song() {
-	delete[] name;
+Song::Song(const Song &other) {
 	name = NULL;
-	delete artist;
 	artist = NULL;
+	copy(other);
 }
 
-char *Song::getName() const {
+Song &Song::operator=(const Song &other) {
+	if (this != &other) {
+		destroy();
+		copy(other);
+	}
+
+	return *this;
+}
+
+Song::~Song() {
+	destroy();
+}
+
+const char *Song::getName() const {
 	return name;
 }
 
-Person *Song::getArtist() const {
+const char *Song::getArtist() const {
 	return artist;
 }
 
@@ -38,21 +62,11 @@ int Song::getDuration() const {
 }
 
 void Song::setName(const char *name) {
-	if (this->name) {
-		delete[] this->name;
-	}
-
-	int nameLen = strlen(name) + 1;
-	this->name = new char[nameLen];
-	strncpy(this->name, name, nameLen);
+	setString(&this->name, name);
 }
 
-void Song::setArtist(const Person &artist) {
-	if (this->artist) {
-		delete this->artist;
-	}
-
-	this->artist = new Person(artist);
+void Song::setArtist(const char *artist) {
+	setString(&this->artist, artist);
 }
 
 void Song::setDuration(int duration) {

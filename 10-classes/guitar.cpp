@@ -1,13 +1,15 @@
 #include <cstring>
 #include "guitar.h"
 
-Guitar::Guitar() {
-	type = new char[9];
-	const char acoustic[] = "Acoustic";
-	strncpy(type, acoustic, 9);
+void Guitar::copy(const Guitar &other) {
+	setType(other.type);
+	strings = other.strings;
+	frets = other.frets;
+}
 
-	strings = 6;
-	frets = 19;
+void Guitar::destroy() {
+	delete[] type;
+	type = NULL;
 }
 
 Guitar::Guitar(const char *type, int strings, int frets) {
@@ -17,7 +19,25 @@ Guitar::Guitar(const char *type, int strings, int frets) {
 	this->frets = frets;
 }
 
-char *Guitar::getType() const {
+Guitar::Guitar(const Guitar &other) {
+	type = NULL;
+	copy(other);
+}
+
+Guitar &Guitar::operator=(const Guitar &other) {
+	if (this != &other) {
+		destroy();
+		copy(other);
+	}
+
+	return *this;
+}
+
+Guitar::~Guitar() {
+	destroy();
+}
+
+const char *Guitar::getType() const {
 	return type;
 }
 
@@ -30,9 +50,7 @@ int Guitar::getFrets() const {
 }
 
 void Guitar::setType(const char *type) {
-	if (this->type) {
-		delete[] this->type;
-	}
+	delete[] this->type;
 
 	int typeLen = strlen(type) + 1;
 	this->type = new char[typeLen];
@@ -45,9 +63,4 @@ void Guitar::setStrings(int strings) {
 
 void Guitar::setFrets(int frets) {
 	this->frets = frets;
-}
-
-Guitar::~Guitar() {
-	delete[] type;
-	type = NULL;
 }

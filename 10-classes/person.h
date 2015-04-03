@@ -8,18 +8,19 @@ private:
 	int age;
 	char gender;
 
-	void setName(char **dest, const char *source);
+	void copy(const Person &other);
+	void destroy();
+	void setString(char **dest, const char *source);
 
 public:
-	Person();
-	Person(const char *firstName, const char *lastName, int age, char gender);
-
+	Person(const char *firstName = "John", const char *lastName = "Doe",
+				int age = 0, char gender = 'm');
 	Person(const Person &other);
-
+	Person &operator=(const Person &other);
 	~Person();
 
-	char *getFirstName() const;
-	char *getLastName() const;
+	const char *getFirstName() const;
+	const char *getLastName() const;
 	int getAge() const;
 	char getGender() const;
 
