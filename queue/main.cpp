@@ -26,5 +26,13 @@ int main() {
 
 	std::cout << "size: " << queue.getSize() << '\n';
 
+	TestQueue oneEl(1);
+	for (int i = 2; i <= 10; i++) {
+		oneEl.push(i);
+	}
+	for (int i = 0; i < 10; i++) {
+		std::cout << oneEl.pop() << '\n';
+	}
+
 	return 0;
 }

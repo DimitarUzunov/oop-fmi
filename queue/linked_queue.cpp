@@ -1,4 +1,3 @@
-#include <climits>
 #include <iostream>
 #include "linked_queue.h"
 
@@ -28,6 +27,8 @@ LinkedQueue::LinkedQueue() {
 }
 
 LinkedQueue::LinkedQueue(int el) {
+	frontNode = NULL;
+	backNode = NULL;
 	push(el);
 }
 
@@ -55,12 +56,12 @@ bool LinkedQueue::isEmpty() const {
 }
 
 int LinkedQueue::front() const {
-	if (!isEmpty()) {
-		return frontNode->data;
-	} else {
+	if (isEmpty()) {
 		std::cout << "Can't get the front element. The queue is empty.\n";
 		return -1;
 	}
+
+	return frontNode->data;
 }
 
 int LinkedQueue::getSize() const {
