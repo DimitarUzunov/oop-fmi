@@ -1,5 +1,6 @@
 /10-classes/*
 /queue/*
+/stack/*
 !*.cpp
 !*.h
 !Makefile
