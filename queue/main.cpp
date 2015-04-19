@@ -18,9 +18,13 @@ int main() {
 		std::cout << copy.pop() << '\n';
 	}
 
+	std::cout << "size: " << queue.getSize() << '\n';
+
 	for (int i = 0; i < 10; i++) {
 		std::cout << queue.pop() << '\n';
 	}
+
+	std::cout << "size: " << queue.getSize() << '\n';
 
 	return 0;
 }

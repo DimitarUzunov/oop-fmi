@@ -8,9 +8,6 @@ LinkedNode::LinkedNode(int data, LinkedNode *next) {
 }
 
 void LinkedQueue::copy(const LinkedQueue &other) {
-	frontNode = NULL;
-	backNode = NULL;
-	
 	LinkedNode *tempNode = other.frontNode;
 
 	while (tempNode) {
@@ -35,6 +32,8 @@ LinkedQueue::LinkedQueue(int el) {
 }
 
 LinkedQueue::LinkedQueue(const LinkedQueue &other) {
+	frontNode = NULL;
+	backNode = NULL;
 	copy(other);
 }
 
