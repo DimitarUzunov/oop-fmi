@@ -1,6 +1,8 @@
 /10-classes/*
 /queue/*
 /stack/*
+/order/*
+/event-log/*
 !*.cpp
 !*.h
 !Makefile
