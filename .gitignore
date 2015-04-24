@@ -3,6 +3,7 @@
 /stack/*
 /order/*
 /event-log/*
+/apartment/*
 !*.cpp
 !*.h
 !Makefile
