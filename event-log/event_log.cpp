@@ -97,8 +97,8 @@ void EventLog::clear() {
 
 std::ostream &operator<<(std::ostream &os, const EventLog &eventLog) {
 	if (eventLog.getSize() == 0) {
-		os << "The event log with name: "
-			<< eventLog.getName() << " has no events.\n";
+		os << "The event log with name '"
+			<< eventLog.getName() << "' has no events.\n";
 		return os;
 	}
 
