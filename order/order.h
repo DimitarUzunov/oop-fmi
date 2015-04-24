@@ -16,6 +16,7 @@ private:
 
 public:
 	Order(int id = 0, int capacity = 4);
+	Order(int id, const char **items, int count);
 	Order(const Order &other);
 	Order &operator=(const Order &other);
 	~Order();
@@ -23,6 +24,8 @@ public:
 	int getId() const;
 	int getSize() const;
 	char **getItems() const;
+
+	void setId(int id);
 
 	void addItem(const char *name);
 	void cancel();

@@ -4,6 +4,7 @@
 
 void Order::copy(const Order &other) {
 	id = other.id;
+	size = 0;
 	capacity = other.capacity;
 	items = new char*[capacity];
 	for (int i = 0; i < other.size; i++) {
@@ -32,6 +33,16 @@ Order::Order(int id, int capacity) {
 	items = new char*[capacity];
 	size = 0;
 	this->capacity = capacity;
+}
+
+Order::Order(int id, const char **items, int count) {
+	this->id = id;
+	size = 0;
+	capacity = count;
+	this->items = new char*[capacity];
+	for (int i = 0; i < capacity; i++) {
+		addItem(items[i]);
+	}
 }
 
 Order::Order(const Order &other) {
@@ -63,6 +74,10 @@ char **Order::getItems() const {
 	return items;
 }
 
+void Order::setId(int id) {
+	this->id = id;
+}
+
 void Order::addItem(const char *name) {
 	if (size == capacity) {
 		resize();
@@ -81,11 +96,11 @@ void Order::cancel() {
 
 std::ostream &operator<<(std::ostream &os, const Order &order) {
 	if (order.getSize() == 0) {
-		os << "Order with id: " << order.getId() << " has no items.\n";
+		os << "Order with id '" << order.getId() << "' has no items.\n";
 		return os;
 	}
 
-	os << "Order with id: " << order.getId() << " has the following items:\n";
+	os << "Order with id '" << order.getId() << "' has the following items:\n";
 	for (int i = 0; i < order.getSize(); i++) {
 		os << order.getItems()[i] << '\n';
 	}

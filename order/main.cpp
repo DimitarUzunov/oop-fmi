@@ -2,15 +2,18 @@
 #include "order.h"
 
 int main() {
-	Order order;
-	order.addItem("iPod");
-	order.addItem("iPhone");
-	order.addItem("Mac");
-	order.cancel();
-	order.addItem("iPad");
-	order.addItem("iWatch");
+	const char *items[] = {"iPod", "iPhone", "Mac"};
+	Order order(1, items, 3);
 
 	std::cout << order;
+
+	Order wishList = order;
+	order.cancel();
+	wishList.setId(2);
+	wishList.addItem("iPad");
+	wishList.addItem("iWatch");
+
+	std::cout << wishList;
 
 	return 0;
 }
