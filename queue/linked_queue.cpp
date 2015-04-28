@@ -1,13 +1,15 @@
 #include <iostream>
 #include "linked_queue.h"
 
-LinkedNode::LinkedNode(int data, LinkedNode *next) {
+template <typename T>
+LinkedNode<T>::LinkedNode(T data, LinkedNode<T> *next) {
 	this->data = data;
 	this->next = next;
 }
 
-void LinkedQueue::copy(const LinkedQueue &other) {
-	LinkedNode *tempNode = other.frontNode;
+template <typename T>
+void LinkedQueue<T>::copy(const LinkedQueue<T> &other) {
+	LinkedNode<T> *tempNode = other.frontNode;
 
 	while (tempNode) {
 		push(tempNode->data);
@@ -15,30 +17,35 @@ void LinkedQueue::copy(const LinkedQueue &other) {
 	}
 }
 
-void LinkedQueue::destroy() {
+template <typename T>
+void LinkedQueue<T>::destroy() {
 	while (!isEmpty()) {
 		pop();
 	}
 }
 
-LinkedQueue::LinkedQueue() {
+template <typename T>
+LinkedQueue<T>::LinkedQueue() {
 	frontNode = NULL;
 	backNode = NULL;
 }
 
-LinkedQueue::LinkedQueue(int el) {
+template <typename T>
+LinkedQueue<T>::LinkedQueue(T el) {
 	frontNode = NULL;
 	backNode = NULL;
 	push(el);
 }
 
-LinkedQueue::LinkedQueue(const LinkedQueue &other) {
+template <typename T>
+LinkedQueue<T>::LinkedQueue(const LinkedQueue<T> &other) {
 	frontNode = NULL;
 	backNode = NULL;
 	copy(other);
 }
 
-LinkedQueue &LinkedQueue::operator=(const LinkedQueue &other) {
+template <typename T>
+LinkedQueue<T> &LinkedQueue<T>::operator=(const LinkedQueue<T> &other) {
 	if (this != &other) {
 		destroy();
 		copy(other);
@@ -47,15 +54,18 @@ LinkedQueue &LinkedQueue::operator=(const LinkedQueue &other) {
 	return *this;
 }
 
-LinkedQueue::~LinkedQueue() {
+template <typename T>
+LinkedQueue<T>::~LinkedQueue() {
 	destroy();
 }
 
-bool LinkedQueue::isEmpty() const {
+template <typename T>
+bool LinkedQueue<T>::isEmpty() const {
 	return frontNode == NULL;
 }
 
-int LinkedQueue::front() const {
+template <typename T>
+T LinkedQueue<T>::front() const {
 	if (isEmpty()) {
 		std::cout << "Can't get the front element. The queue is empty.\n";
 		return -1;
@@ -64,8 +74,9 @@ int LinkedQueue::front() const {
 	return frontNode->data;
 }
 
-int LinkedQueue::getSize() const {
-	LinkedNode *tempNode = frontNode;
+template <typename T>
+int LinkedQueue<T>::getSize() const {
+	LinkedNode<T> *tempNode = frontNode;
 
 	int count = 0;
 	while (tempNode) {
@@ -76,8 +87,9 @@ int LinkedQueue::getSize() const {
 	return count;
 }
 
-void LinkedQueue::push(int el) {
-	LinkedNode *newNode = new LinkedNode(el);
+template <typename T>
+void LinkedQueue<T>::push(T el) {
+	LinkedNode<T> *newNode = new LinkedNode<T>(el);
 	if (isEmpty()) {
 		frontNode = newNode;
 		backNode = newNode;
@@ -87,7 +99,8 @@ void LinkedQueue::push(int el) {
 	}
 }
 
-int LinkedQueue::pop() {
+template <typename T>
+T LinkedQueue<T>::pop() {
 	if(isEmpty()) {
 		std::cout << "Can't pop. The queue is empty.\n";
 		return -1;
@@ -99,7 +112,7 @@ int LinkedQueue::pop() {
 
 	int data = frontNode->data;
 
-	LinkedNode *tempNode = frontNode;
+	LinkedNode<T> *tempNode = frontNode;
 	frontNode = frontNode->next;
 	delete tempNode;
 

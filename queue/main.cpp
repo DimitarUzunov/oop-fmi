@@ -1,9 +1,9 @@
 #include <iostream>
 #include "static_queue.h"
 #include "dynamic_queue.h"
-#include "linked_queue.h"
+#include "linked_queue.cpp"
 
-typedef LinkedQueue TestQueue;
+typedef LinkedQueue<int> TestQueue;
 
 int main() {
 	TestQueue queue;

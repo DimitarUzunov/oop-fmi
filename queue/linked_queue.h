@@ -1,33 +1,35 @@
 #ifndef LINKED_QUEUE_H
 #define LINKED_QUEUE_H
 
+template <typename T>
 struct LinkedNode {
-	int data;
+	T data;
 	LinkedNode *next;
-	LinkedNode(int data = 0, LinkedNode *next = NULL);
+	LinkedNode(T data = 0, LinkedNode<T> *next = NULL);
 };
 
+template <typename T>
 class LinkedQueue {
 private:
-	LinkedNode *frontNode;
-	LinkedNode *backNode;
+	LinkedNode<T> *frontNode;
+	LinkedNode<T> *backNode;
 
-	void copy(const LinkedQueue &other);
+	void copy(const LinkedQueue<T> &other);
 	void destroy();
 
 public:
 	LinkedQueue();
-	LinkedQueue(int el);
-	LinkedQueue(const LinkedQueue &other);
-	LinkedQueue &operator=(const LinkedQueue &other);
+	LinkedQueue(T el);
+	LinkedQueue(const LinkedQueue<T> &other);
+	LinkedQueue &operator=(const LinkedQueue<T> &other);
 	~LinkedQueue();
 
 	bool isEmpty() const;
-	int front() const;
+	T front() const;
 	int getSize() const;
 
-	void push(int el);
-	int pop();
+	void push(T el);
+	T pop();
 };
 
 #endif
