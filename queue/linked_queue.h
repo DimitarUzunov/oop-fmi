@@ -5,7 +5,7 @@ template <typename T>
 struct LinkedNode {
 	T data;
 	LinkedNode *next;
-	LinkedNode(T data = 0, LinkedNode<T> *next = NULL);
+	LinkedNode(T data = 0, LinkedNode *next = NULL);
 };
 
 template <typename T>
@@ -14,14 +14,14 @@ private:
 	LinkedNode<T> *frontNode;
 	LinkedNode<T> *backNode;
 
-	void copy(const LinkedQueue<T> &other);
+	void copy(const LinkedQueue &other);
 	void destroy();
 
 public:
 	LinkedQueue();
 	LinkedQueue(T el);
-	LinkedQueue(const LinkedQueue<T> &other);
-	LinkedQueue &operator=(const LinkedQueue<T> &other);
+	LinkedQueue(const LinkedQueue &other);
+	LinkedQueue &operator=(const LinkedQueue &other);
 	~LinkedQueue();
 
 	bool isEmpty() const;
