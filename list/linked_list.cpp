@@ -56,7 +56,8 @@ bool LinkedList<T>::isEmpty() const {
 template <typename T>
 T LinkedList<T>::getAt(int index) const {
 	if (isEmpty()) {
-		return -1;
+		std::cout << "The list is empty.\n";
+		return T();
 	}
 
 	Node<T> *toReturn = head;
@@ -84,7 +85,8 @@ int LinkedList<T>::search(T el) const {
 		index++;
 	}
 
-	return -1;
+	std::cout << "Element not found.\n";
+	return T();
 }
 
 template <typename T>
@@ -160,7 +162,8 @@ void LinkedList<T>::insertAt(T el, int index) {
 template <typename T>
 T LinkedList<T>::removeHead() {
 	if (isEmpty()) {
-		return -1;
+		std::cout << "The list is empty.\n";
+		return T();
 	}
 
 	if (head->next == NULL) {
@@ -179,7 +182,8 @@ T LinkedList<T>::removeHead() {
 template <typename T>
 T LinkedList<T>::removeTail() {
 	if (isEmpty()) {
-		return -1;
+		std::cout << "The list is empty.\n";
+		return T();
 	}
 
 	if (head->next == NULL) {

@@ -68,7 +68,7 @@ template <typename T>
 T LinkedQueue<T>::front() const {
 	if (isEmpty()) {
 		std::cout << "Can't get the front element. The queue is empty.\n";
-		return -1;
+		return T();
 	}
 
 	return frontNode->data;
@@ -103,7 +103,7 @@ template <typename T>
 T LinkedQueue<T>::pop() {
 	if(isEmpty()) {
 		std::cout << "Can't pop. The queue is empty.\n";
-		return -1;
+		return T();
 	}
 
 	if (frontNode->next == NULL) {
