@@ -4,6 +4,10 @@
 /order/*
 /event-log/*
 /apartment/*
+/list/*
+/binary-tree/*
+/game/*
+/dates/*
 !*.cpp
 !*.h
 !Makefile
