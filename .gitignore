@@ -8,6 +8,7 @@
 /binary-tree/*
 /game/*
 /dates/*
+/cfg-pushdown-automaton/*
 !*.cpp
 !*.h
 !Makefile
