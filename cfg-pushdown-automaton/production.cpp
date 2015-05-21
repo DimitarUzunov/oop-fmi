@@ -1,4 +1,4 @@
-#include <cstring>
+#include <cstring> // strlen, strcpy, strcmp
 #include "production.h"
 
 void Production::setRight(const char* right) {
@@ -42,6 +42,10 @@ char Production::getLeft() const {
 
 const char* Production::getRight() const {
 	return right;
+}
+
+bool Production::operator==(const Production& other) const {
+	return left == other.left && !strcmp(right, other.right);
 }
 
 std::ostream& operator<<(std::ostream& os, const Production& production) {

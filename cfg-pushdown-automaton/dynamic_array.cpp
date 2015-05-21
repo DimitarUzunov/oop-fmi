@@ -16,7 +16,6 @@ private:
 
 public:
 	DynamicArray(int capacity = 8);
-	DynamicArray(const T* items, int count);
 	DynamicArray(const DynamicArray& other);
 	DynamicArray& operator=(const DynamicArray& other);
 	~DynamicArray();
@@ -24,6 +23,7 @@ public:
 	int isEmpty() const;
 	int getSize() const;
 	const T& operator[](int index) const;
+	operator const char*() const;
 
 	void pushBack(T item);
 	void popBack();
@@ -65,16 +65,6 @@ DynamicArray<T>::DynamicArray(int capacity): size(0), capacity(capacity) {
 }
 
 template <typename T>
-DynamicArray<T>::DynamicArray(const T* items, int count) {
-	size = count;
-	capacity = count;
-	this->items = new T[capacity];
-	for (int i = 0; i < size; i++) {
-		this->items[i] = items[i];
-	}
-}
-
-template <typename T>
 DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) {
 	copy(other);
 }
@@ -106,6 +96,11 @@ int DynamicArray<T>::getSize() const {
 template <typename T>
 const T& DynamicArray<T>::operator[](int index) const {
 	return items[index];
+}
+
+template <typename T>
+DynamicArray<T>::operator const char*() const {
+	return items;
 }
 
 template <typename T>

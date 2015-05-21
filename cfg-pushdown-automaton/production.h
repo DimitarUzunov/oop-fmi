@@ -20,6 +20,7 @@ public:
 
 	char getLeft() const;
 	const char* getRight() const;
+	bool operator==(const Production& other) const;
 
 	friend std::ostream& operator<<(std::ostream& os,
 																	const Production& production);
