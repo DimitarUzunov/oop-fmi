@@ -1,7 +1,7 @@
 CC = g++
 CFLAGS = -Wall -g
 
-SRCS = main.cpp dynamic_array.cpp cfg.cpp production.cpp
+SRCS = main.cpp dynamic_array.cpp linked_list.cpp linked_stack.cpp cfg.cpp production.cpp pda.cpp state.cpp transition.cpp
 OBJS = $(SRCS:.cpp=.o)
 TARGET = main
 

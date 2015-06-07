@@ -1,7 +1,7 @@
 #ifndef CFG_H
 #define CFG_H
 
-#include "dynamic_array.cpp"
+#include "dynamic_array.h"
 #include "production.h"
 
 // TODO: make them static members of the class
@@ -34,7 +34,11 @@ public:
 	CFG(const char* nonterminals, const char* terminals, char start);
 
 	bool isInCNF() const;
-	bool contains(const char* str);
+	bool contains(const char* str) const;
+	const DynamicArray<char>& getTerminals() const;
+	const DynamicArray<char>& getNonterminals() const;
+	const DynamicArray<Production>& getProductions() const;
+	char getStart() const;
 
 	void addProduction(char left, const char* right);
 	void removeProduction(int index);

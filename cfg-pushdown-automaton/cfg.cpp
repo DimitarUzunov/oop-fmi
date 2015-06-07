@@ -219,7 +219,7 @@ bool CFG::isInCNF() const {
 }
 
 // check if str is in the language of the grammar
-bool CFG::contains(const char* str) {
+bool CFG::contains(const char* str) const {
 	if (isEps(str)) return productionExists(start, "");
 
 	int len = strlen(str);
@@ -277,6 +277,22 @@ bool CFG::contains(const char* str) {
 	return result;
 }
 
+const DynamicArray<char>& CFG::getTerminals() const {
+	return terminals;
+}
+
+const DynamicArray<char>& CFG::getNonterminals() const {
+	return nonterminals;
+}
+
+const DynamicArray<Production>& CFG::getProductions() const {
+	return productions;
+}
+
+char CFG::getStart() const {
+	return start;
+}
+
 void CFG::addProduction(char left, const char* right) {
 	productions.pushBack(Production(left, right));
 }
@@ -291,15 +307,8 @@ std::ostream& operator<<(std::ostream& os, const CFG& cfg) {
 		<< "Start: " << cfg.start << '\n';
 
 	int prodCount = cfg.productions.getSize();
-	if (prodCount) {
-		os << "Productions:\n";
-		for (int i = 0; i < prodCount - 1; i++) {
-			os << cfg.productions[i] << '\n';
-		}
-		return os << cfg.productions[prodCount - 1];
-	} else {
-		return os << "There are no productions.";
-	}
+	if (prodCount) return os << "Productions:\n" << cfg.productions;
+	else return os << "There are no productions.";
 }
 
 CFG unite(const CFG& grammar1, const CFG& grammar2) {

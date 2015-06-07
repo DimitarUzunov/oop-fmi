@@ -1,40 +1,9 @@
-#ifndef DYNAMIC_ARRAY_CPP
-#define DYNAMIC_ARRAY_CPP
-
-#include <iostream>
-
-template <typename T>
-class DynamicArray {
-private:
-	T* items;
-	int size;
-	int capacity;
-
-	void copy(const DynamicArray& other);
-	void destroy();
-	void resize();
-
-public:
-	DynamicArray(int capacity = 8);
-	DynamicArray(const DynamicArray& other);
-	DynamicArray& operator=(const DynamicArray& other);
-	~DynamicArray();
-
-	int isEmpty() const;
-	int getSize() const;
-	const T& operator[](int index) const;
-	operator const char*() const;
-
-	void pushBack(T item);
-	void popBack();
-	void insertAt(int index, T item);
-	void removeAt(int index);
-
-	friend std::ostream& operator<<(std::ostream& os, const DynamicArray& da);
-};
+#include "dynamic_array.h"
+#include "production.h"
+#include "state.h"
 
 template <typename T>
-void DynamicArray<T>::copy(const DynamicArray<T>& other) {
+void DynamicArray<T>::copy(const DynamicArray& other) {
 	size = other.size;
 	capacity = other.capacity;
 	items = new T[capacity];
@@ -65,12 +34,22 @@ DynamicArray<T>::DynamicArray(int capacity): size(0), capacity(capacity) {
 }
 
 template <typename T>
-DynamicArray<T>::DynamicArray(const DynamicArray<T>& other) {
+DynamicArray<T>::DynamicArray(const T* items, int count) {
+	size = count;
+	capacity = count;
+	this->items = new T[capacity];
+	for (int i = 0; i < count; i++) {
+		this->items[i] = items[i];
+	}
+}
+
+template <typename T>
+DynamicArray<T>::DynamicArray(const DynamicArray& other) {
 	copy(other);
 }
 
 template <typename T>
-DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray<T>& other) {
+DynamicArray<T>& DynamicArray<T>::operator=(const DynamicArray& other) {
 	if (this != &other) {
 		destroy();
 		copy(other);
@@ -94,12 +73,12 @@ int DynamicArray<T>::getSize() const {
 }
 
 template <typename T>
-const T& DynamicArray<T>::operator[](int index) const {
+T& DynamicArray<T>::operator[](int index) const {
 	return items[index];
 }
 
 template <typename T>
-DynamicArray<T>::operator const char*() const {
+DynamicArray<T>::operator const T*() const {
 	return items;
 }
 
@@ -134,11 +113,27 @@ void DynamicArray<T>::removeAt(int index) {
 	size--;
 }
 
-inline std::ostream& operator<<(std::ostream& os, const DynamicArray<char>& da) {
+std::ostream& operator<<(std::ostream& os, const DynamicArray<char>& da) {
 	for (int i = 0; i < da.size; i++) {
 		os << da[i];
 	}
 	return os;
 }
 
-#endif
+std::ostream& operator<<(std::ostream& os, const DynamicArray<Production>& da) {
+	for (int i = 0; i < da.size - 1; i++) {
+		os << da[i] << '\n';
+	}
+	return os << da[da.size - 1];
+}
+
+std::ostream& operator<<(std::ostream& os, const DynamicArray<State>& da) {
+	for (int i = 0; i < da.size - 1; i++) {
+		os << da[i] << ", ";
+	}
+	return os << da[da.size - 1];
+}
+
+template class DynamicArray<char>;
+template class DynamicArray<Production>;
+template class DynamicArray<State>;

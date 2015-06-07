@@ -1,4 +1,5 @@
 #include "cfg.h"
+#include "pda.h"
 
 int main()
 {
@@ -40,6 +41,19 @@ int main()
 	cfg3.addProduction('A', "a");
 	cfg3.addProduction('B', "b");
 	std::cout << cfg3.contains("ab") << '\n';
+
+	//PDA pdaFromCfg(cfg3);
+	//std::cout << pdaFromCfg.contains("a") << '\n';
+
+	// PDA pda("PQR", "01", "AZ", 'P', 'Z', "R");
+	// pda.addTransition('P', '0', 'Z', 'P', "AZ");
+	// pda.addTransition('P', '0', 'A', 'P', "AA");
+	// pda.addTransition('P', '\0', 'Z', 'Q', "Z");
+	// pda.addTransition('P', '\0', 'A', 'Q', "A");
+	// pda.addTransition('Q', '1', 'A', 'Q', "");
+	// pda.addTransition('Q', '\0', 'Z', 'R', "Z");
+	// std::cout << pda << '\n';
+	// std::cout << pda.contains("000111") << '\n';
 
 	return 0;
 }
