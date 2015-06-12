@@ -19,10 +19,12 @@ const LinkedList<Transition>& State::getTransitions() const {
 	return transitions;
 }
 
-void State::addTransition(char state1, char inputSym, char stackSym,
-													char state2, int stateId, const char* toPush) {
+Transition* State::addTransition(char state1, char inputSym,
+																			char stackSym, char state2,
+																			int stateId, const char* toPush) {
 	transitions.insertTail(Transition(state1, inputSym, stackSym,
 												state2, stateId, toPush));
+	return (Transition*)&(transitions.getTail()->data);
 }
 
 void State::printTransitions() {

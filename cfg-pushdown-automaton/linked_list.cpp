@@ -21,22 +21,24 @@ void LinkedList<T>::destroy() {
 }
 
 template <typename T>
-LinkedList<T>::LinkedList(): head(NULL), tail(NULL) {}
+LinkedList<T>::LinkedList(): head(NULL), tail(NULL), size(0) {}
 
 template <typename T>
-LinkedList<T>::LinkedList(const T& el): head(NULL), tail(NULL) {
+LinkedList<T>::LinkedList(const T& el): head(NULL), tail(NULL), size(0) {
 	insertHead(el);
 }
 
 template <typename T>
-LinkedList<T>::LinkedList(const T* els, int count): head(NULL), tail(NULL) {
+LinkedList<T>::LinkedList(const T* els, int count)
+													: head(NULL), tail(NULL), size(0) {
 	for (int i = 0; i < count; i++) {
 		insertTail(els[i]);
 	}
 }
 
 template <typename T>
-LinkedList<T>::LinkedList(const LinkedList& other): head(NULL), tail(NULL) {
+LinkedList<T>::LinkedList(const LinkedList& other)
+													: head(NULL), tail(NULL), size(0) {
 	copy(other);
 }
 
@@ -65,17 +67,29 @@ const Node<T>* LinkedList<T>::getHead() const {
 }
 
 template <typename T>
+const Node<T>* LinkedList<T>::getTail() const {
+	return tail;
+}
+
+template <typename T>
+int LinkedList<T>::getSize() const {
+	return size;
+}
+
+template <typename T>
 void LinkedList<T>::insertHead(const T& el) {
 	Node<T>* newNode = new Node<T>(el);
 
 	if (isEmpty()) {
 		head = newNode;
 		tail = newNode;
+		size++;
 		return;
 	}
 
 	newNode->next = head;
 	head = newNode;
+	size++;
 }
 
 template <typename T>
@@ -85,11 +99,13 @@ void LinkedList<T>::insertTail(const T& el) {
 	if (isEmpty()) {
 		head = newNode;
 		tail = newNode;
+		size++;
 		return;
 	}
 
 	tail->next = newNode;
 	tail = tail->next;
+	size++;
 }
 
 template <typename T>
@@ -117,6 +133,7 @@ void LinkedList<T>::insertAt(const T& el, int index) {
 	}
 
 	insertAfter->next = newNode;
+	size++;
 }
 
 template <typename T>
@@ -130,6 +147,7 @@ void LinkedList<T>::removeHead() {
 	Node<T>* tempNode = head;
 	head = head->next;
 	delete tempNode;
+	size--;
 }
 
 template <typename T>
@@ -141,6 +159,8 @@ void LinkedList<T>::removeTail() {
 		head = NULL;
 		tail = NULL;
 		delete temp;
+		size--;
+		return;
 	}
 
 	Node<T>* prev = head;
@@ -152,11 +172,15 @@ void LinkedList<T>::removeTail() {
 	prev->next = NULL;
 	tail = prev;
 	delete temp;
+	size--;
 }
 
 template <typename T>
 void LinkedList<T>::removeAt(int index) {
-	if (index == 0) removeHead();
+	if (index == 0) {
+		removeHead();
+		return;
+	}
 
 	Node<T>* deleteAfter = head;
 	Node<T>* toDelete = head->next;
@@ -172,6 +196,7 @@ void LinkedList<T>::removeAt(int index) {
 	}
 
 	delete toDelete;
+	size--;
 }
 
 std::ostream& operator<<(std::ostream& os, const LinkedList<char>& ll) {

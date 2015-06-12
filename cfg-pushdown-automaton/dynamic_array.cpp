@@ -1,6 +1,7 @@
 #include "dynamic_array.h"
 #include "production.h"
 #include "state.h"
+#include "transition.h"
 
 template <typename T>
 void DynamicArray<T>::copy(const DynamicArray& other) {
@@ -113,6 +114,13 @@ void DynamicArray<T>::removeAt(int index) {
 	size--;
 }
 
+template <typename T>
+void DynamicArray<T>::swap(T& item1, T& item2) {
+	T& temp = item1;
+	item1 = item2;
+	item2 = temp;
+}
+
 std::ostream& operator<<(std::ostream& os, const DynamicArray<char>& da) {
 	for (int i = 0; i < da.size; i++) {
 		os << da[i];
@@ -137,3 +145,4 @@ std::ostream& operator<<(std::ostream& os, const DynamicArray<State>& da) {
 template class DynamicArray<char>;
 template class DynamicArray<Production>;
 template class DynamicArray<State>;
+template class DynamicArray<Transition*>;

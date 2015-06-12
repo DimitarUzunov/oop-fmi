@@ -15,6 +15,7 @@ class LinkedList {
 private:
 	Node<T>* head;
 	Node<T>* tail;
+	int size;
 
 	void copy(const LinkedList& other);
 	void destroy();
@@ -29,6 +30,8 @@ public:
 
 	bool isEmpty() const;
 	const Node<T>* getHead() const;
+	const Node<T>* getTail() const;
+	int getSize() const;
 
 	void insertHead(const T& el);
 	void insertTail(const T& el);

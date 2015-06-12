@@ -19,8 +19,8 @@ public:
 	bool getIsFinal() const;
 	const LinkedList<Transition>& getTransitions() const;
 
-	void addTransition(char state1, char inputSym, char stackSym,
-										char state2, int stateId, const char* toPush);
+	Transition* addTransition(char state1, char inputSym, char stackSym,
+														char state2, int stateId, const char* toPush);
 
 	void printTransitions();
 	friend std::ostream& operator<<(std::ostream& os, const State& state);

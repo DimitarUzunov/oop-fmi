@@ -1,5 +1,7 @@
 #include <cstring> // strlen
 #include "cfg.h"
+#include "state.h"
+#include "transition.h"
 
 bool CFG::isEps(const char* str) const {
 	return str[0] == '\0';
@@ -186,15 +188,62 @@ void CFG::removeTerminals() {
 	}
 }
 
-CFG::CFG(const char* nonterminals, const char* terminals, char start)
-				: start(start) {
+void CFG::initializeNonterms(const char* nonterminals) {
 	for (int i = 0; i < NONTERMS; i++) isUsedNonterm[i] = false;
-	for (int i = 0; i < TERMS; i++) isUsedTerm[i] = false;
 	for (int i = 0, len = strlen(nonterminals); i < len; i++) {
 		addNonterminal(nonterminals[i]);
 	}
+}
+
+void CFG::initializeTerms(const char* terminals) {
+	for (int i = 0; i < TERMS; i++) isUsedTerm[i] = false;
 	for (int i = 0, len = strlen(terminals); i < len; i++) {
 		addTerminal(terminals[i]);
+	}
+}
+
+CFG::CFG(const char* nonterminals, const char* terminals, char start)
+				: start(start) {
+	initializeNonterms(nonterminals);
+	initializeTerms(terminals);
+}
+
+CFG::CFG(const PDA& pda): start(pda.getStartStackSym()) {
+	// add terminals and nonterminals
+	initializeNonterms(pda.getStackAlpha());
+	initializeTerms(pda.getInputAlpha());
+
+	// add productions
+	const State& state = pda.getStates()[0];
+	const Node<Transition>* iterator = state.getTransitions().getHead();
+	while (iterator) { // iterate over transitions
+		const Transition& transition = iterator->data;
+		char stackSym = transition.getStackSym();
+		char inputSym = transition.getInputSym();
+
+		// convert toPush to char*
+		int toPushLen = transition.getToPush().getSize();
+		char* toPush = new char[toPushLen + 1];
+		const Node<char>* toPushIterator = transition.getToPush().getHead();
+		int index = 0;
+		while (toPushIterator) {
+			toPush[index] = toPushIterator->data;
+			toPushIterator = toPushIterator->next;
+			index++;
+		}
+		toPush[toPushLen] = '\0';
+
+		if (inputSym == EPS) {
+			addProduction(stackSym, toPush);
+		} else {
+			char* right = new char[strlen(toPush) + 2];
+			right[0] = inputSym;
+			addProduction(stackSym, strcat(right, toPush));
+			delete[] right;
+		}
+		iterator = iterator->next;
+
+		delete[] toPush;
 	}
 }
 

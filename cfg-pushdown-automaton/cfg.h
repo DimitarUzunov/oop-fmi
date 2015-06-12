@@ -1,8 +1,10 @@
 #ifndef CFG_H
 #define CFG_H
 
+#include <iostream>
 #include "dynamic_array.h"
 #include "production.h"
+#include "pda.h"
 
 // TODO: make them static members of the class
 const int NONTERMS = 26;
@@ -30,8 +32,12 @@ private:
 	int nontermCountInProd(char nonterm, const Production& prod) const;
 	void createProdCombinations(const Production& prod, char nonterm, int count);
 
+	void initializeNonterms(const char* nonterminals);
+	void initializeTerms(const char* terminals);
+
 public:
 	CFG(const char* nonterminals, const char* terminals, char start);
+	CFG(const PDA& pda);
 
 	bool isInCNF() const;
 	bool contains(const char* str) const;

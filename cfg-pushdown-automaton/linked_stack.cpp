@@ -81,7 +81,7 @@ int LinkedStack<T>::getSize() const {
 	LinkedNode<T>* tempNode = topNode;
 
 	int count = 0;
-	while (!isEmpty()) {
+	while (tempNode) {
 		count++;
 		tempNode = tempNode->next;
 	}
@@ -103,6 +103,15 @@ void LinkedStack<T>::pop() {
 	LinkedNode<T>* tempNode = topNode;
 	topNode = topNode->next;
 	delete tempNode;
+}
+
+std::ostream& operator<<(std::ostream& os, const LinkedStack<char>& ls) {
+	LinkedNode<char>* toPrint = ls.topNode;
+	while (toPrint) {
+		os << toPrint->data;
+		toPrint = toPrint->next;
+	}
+	return os;
 }
 
 template struct LinkedNode<char>;

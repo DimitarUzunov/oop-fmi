@@ -31,6 +31,8 @@ public:
 	void insertAt(int index, T item);
 	void removeAt(int index);
 
+	static void swap(T& item1, T& item2);
+
 	friend std::ostream& operator<<(std::ostream& os, const DynamicArray& da);
 };
 

@@ -32,6 +32,8 @@ public:
 
 	void push(const T& el);
 	void pop();
+
+	friend std::ostream& operator<<(std::ostream& os, const LinkedStack& ls);
 };
 
 #endif
